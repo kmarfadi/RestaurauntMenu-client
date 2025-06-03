@@ -1,0 +1,235 @@
+@tailwind base;
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --radius: 0.625rem;
+    --font-family: 'Cairo', sans-serif;
+    --background: 0 0% 1`00%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+  }
+
+  * {
+    font-family: var(--font-family);
+  }
+  :root {
+    color-scheme: light;
+    --background: rgba(255, 255, 255, 1);
+    --foreground: rgba(37, 37, 37, 1);
+    --card: rgba(255, 255, 255, 1);
+    --card-foreground: rgba(37, 37, 37, 1);
+    --popover: rgba(255, 255, 255, 1);
+    --popover-foreground: rgba(37, 37, 37, 1);
+    --primary: rgba(52, 52, 52, 1);
+    --primary-foreground: rgba(251, 251, 251, 1);
+    --secondary: rgba(247, 247, 247, 1);
+    --secondary-foreground: rgba(52, 52, 52, 1);
+    --muted: rgba(247, 247, 247, 1);
+    --muted-foreground: rgba(142, 142, 142, 1);
+    --accent: rgba(247, 247, 247, 1);
+    --accent-foreground: rgba(52, 52, 52, 1);
+    --destructive: rgba(255, 55, 55, 1);
+    --border: rgba(235, 235, 235, 1);
+    --input: rgba(235, 235, 235, 1);
+    --ring: rgba(181, 181, 181, 1);
+  }
+  .dark {
+    
+    --background: hsl(225, 13%, 37%);
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: hsl(217, 26%, 62%);
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: hsl(217.2, 32.6%, 17.5%);
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: hsl(217.2, 32.6%, 17.5%);
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: hsl(0 62.8% 30.6%);
+    --destructive-foreground: 210 40% 98%;
+
+    --border: hsl(214, 17%, 25%);
+    --input: hsl(217.2, 32.6%, 17.5%);
+    --ring: hsl(212.7 26.8% 83.9%);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --font-family: 'Cairo', sans-serif;
+  --background: rgb(255, 255, 255);
+  --foreground: rgb(37, 37, 37);
+  --card: rgb(255, 255, 255);
+  --card-foreground: rgb(37, 37, 37);
+  --popover: rgb(255, 255, 255);
+  --popover-foreground: rgb(37, 37, 37);
+  --primary: rgb(52, 52, 52);
+  --primary-foreground: rgb(251, 251, 251);
+  --secondary: rgb(247, 247, 247);
+  --secondary-foreground: rgb(52, 52, 52);
+  --muted: rgb(247, 247, 247);
+  --muted-foreground: rgb(142, 142, 142);
+  --accent: rgb(247, 247, 247);
+  --accent-foreground: rgb(52, 52, 52);
+  --destructive: hsl(0, 84%, 60%);
+  --border: rgb(235, 235, 235);
+  --input: rgb(235, 235, 235);
+  --ring: rgb(181, 181, 181);
+  --chart-1: hsl(220, 70%, 50%);
+  --chart-2: hsl(160, 60%, 45%);
+  --chart-3: hsl(30, 80%, 55%);
+  --chart-4: hsl(280, 65%, 60%);
+  --chart-5: hsl(340, 75%, 55%);
+  --sidebar: rgb(251, 251, 251);
+  --sidebar-foreground: rgb(37, 37, 37);
+  --sidebar-primary: rgb(52, 52, 52);
+  --sidebar-primary-foreground: rgb(251, 251, 251);
+  --sidebar-accent: rgb(247, 247, 247);
+  --sidebar-accent-foreground: rgb(52, 52, 52);
+  --sidebar-border: rgb(235, 235, 235);
+  --sidebar-ring: rgb(181, 181, 181);
+}
+.dark {
+  --background: rgb(6, 11, 28);
+  --foreground: rgb(250, 250, 250);
+  --card: rgb(10, 3, 31);
+  --card-foreground: rgb(250, 250, 250);
+  --popover: rgb(10, 10, 10);
+  --popover-foreground: rgb(250, 250, 250);
+  --primary: rgb(250, 250, 250);
+  --primary-foreground: rgb(23, 23, 23);
+  --secondary: rgb(38, 38, 38);
+  --secondary-foreground: rgb(250, 250, 250);
+  --muted: rgb(38, 38, 38);
+  --muted-foreground: rgb(158, 143, 143);
+  --accent: rgb(42, 52, 84);
+  --accent-foreground: rgb(250, 250, 250);
+  --destructive: rgb(117, 44, 44);
+  --destructive-foreground: rgb(250, 250, 250);
+  --border: rgb(42, 52, 84);
+  --input: rgb(42, 52, 84);
+  --ring: rgb(212, 212, 212);
+  --chart-1: rgb(43, 85, 204);
+  --chart-2: rgb(46, 153, 102);
+  --chart-3: rgb(217, 122, 28);
+  --chart-4: rgb(143, 51, 194);
+  --chart-5: rgb(214, 51, 108);
+  --sidebar-background: rgb(24, 25, 28);
+  --sidebar-foreground: rgb(244, 244, 245);
+  --sidebar-primary: rgb(37, 99, 235);
+  --sidebar-primary-foreground: rgb(255, 255, 255);
+  --sidebar-accent: rgb(39, 40, 44);
+  --sidebar-accent-foreground: rgb(244, 244, 245);
+  --sidebar-border: rgb(39, 40, 44);
+  --sidebar-ring: rgb(59, 130, 246);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
