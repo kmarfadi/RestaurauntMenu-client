@@ -34,8 +34,11 @@ export function PizzaCard({ pizza }: PizzaCardProps) {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="p-4 pt-0">
-          <Button onClick={() => addItem(pizza)} className="w-full bg-red-500 hover:bg-red-600 font-cairo text-xs text-white">
+        <CardFooter className="p-4 pt-0 flex justify-center">
+          <Button
+            onClick={() => addItem(pizza)}
+            className="w-full bg-red-500 hover:bg-red-600 font-cairo text-xs sm:text-xs md:text-sm text-white"
+          >
             <Plus className="h-4 w-4 ml-2 " />
             إضافة إلى السلة
           </Button>
@@ -58,7 +61,7 @@ export function PizzaCard({ pizza }: PizzaCardProps) {
             addItem(pizza)
             setIsOpen(false)
           }}
-          className="bg-red-500 hover:bg-red-600 font-cairo text-xs text-white"
+          className="bg-red-500 hover:bg-red-600 font-cairo text-xs sm:text-xs md:text-sm text-white"
         >
           <Plus className="h-4 w-5 ml-2" />
           إضافة إلى السلة
