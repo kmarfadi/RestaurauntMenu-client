@@ -3,12 +3,10 @@ import { ThemeProvider } from './components/generalComponents/theme-provider';
 import { CartProvider } from './components/generalComponents/cart-provider';
 import MenuPage from './pages/menu/menu-page';
 import { useEffect } from 'react';
-import { loadCairoFont } from './assets/fonts';
 import AdminPage from './pages/admin/admin-page';
 
 function App() {
   useEffect(() => {
-    loadCairoFont();
     document.documentElement.lang = 'ar';
     document.documentElement.dir = 'rtl';
   }, []);
