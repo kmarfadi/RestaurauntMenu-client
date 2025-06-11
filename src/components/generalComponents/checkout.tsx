@@ -128,7 +128,7 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
               </Label>
               <Input
                 id="address"
-                placeholder="شارع الملك فهد، الرياض"
+                placeholder= "شارع هايل، صنعاء"
                 required
                 className="font-cairo"
                 value={address}
