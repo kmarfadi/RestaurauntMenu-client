@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './components/theme-provider';
-import { CartProvider } from './components/cart-provider';
+import { ThemeProvider } from './components/generalComponents/theme-provider';
+import { CartProvider } from './components/generalComponents/cart-provider';
 import MenuPage from './pages/menu/menu-page';
 import { useEffect } from 'react';
 import { loadCairoFont } from './assets/fonts';

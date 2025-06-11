@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
-import type { Pizza } from "../types"
+import type { Pizza } from "../../types"
 
 interface CartItem extends Pizza {
   quantity: number
@@ -16,6 +16,7 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useCart() {
   const context = useContext(CartContext)
   if (!context) {

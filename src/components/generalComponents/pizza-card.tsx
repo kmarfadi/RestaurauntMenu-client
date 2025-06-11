@@ -1,10 +1,10 @@
 import { Plus } from "lucide-react"
-import { Button } from "./ui/button"
-import { Card, CardContent, CardFooter } from "./ui/card"
+import { Button } from "../ui/button"
+import { Card, CardContent, CardFooter } from "../ui/card"
 import { useCart } from "./cart-provider"
-import type { Pizza } from "../types"
+import type { Pizza } from "../../types"
 import { useState } from "react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog"
 
 interface PizzaCardProps {
   pizza: Pizza

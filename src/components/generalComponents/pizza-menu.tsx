@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from "react"
 import { PizzaCard } from "./pizza-card"
-import { fetchMenu } from "../lib/services"
+import { fetchMenu } from "../../lib/services"
 import { motion } from "framer-motion";
+import LottieLoader from "./LottieLoader";
 
 interface Category {
   id: number
@@ -25,26 +25,26 @@ export function PizzaMenu() {
   const [items, setItems] = useState<Item[]>([])
   const [category, setCategory] = useState<string>("all")
   const [filteredPizzas, setFilteredPizzas] = useState<Item[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Fetch categories and items from the /menu endpoint
     async function fetchData() {
       try {
+        setLoading(true)
         const data = await fetchMenu()
-
-        setCategories([ ...data.categories]) // Add default category
+        setCategories([ ...data.categories])
         setItems(data.items)
-        setFilteredPizzas(data.items) // Default to show all items
+        setFilteredPizzas(data.items)
       } catch (error) {
         console.error("Error fetching data:", error)
+      } finally {
+        setLoading(false)
       }
     }
-
     fetchData()
   }, [])
 
   useEffect(() => {
-    // Filter items based on the selected category
     if (category === "all") {
       setFilteredPizzas(items)
     } else {
@@ -57,7 +57,7 @@ export function PizzaMenu() {
     <div className="py-8 font-cairo">
       <h2 className="text-3xl font-cairo font-bold mb-8 text-center dark:text-white">قائمة الطعام</h2>
 
-      <div className="flex justify-center mb-8  pb-2">
+      <div className="flex justify-center mb-8 pb-2">
         <div className="flex space-x-reverse space-x-2 overflow-x-auto no-scrollbar">
           <button
             onClick={() => setCategory("all")}
@@ -86,16 +86,23 @@ export function PizzaMenu() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap- max-w-5xl mx-auto">
-        {filteredPizzas.map((pizza, index) => (
-          <motion.div
-            key={pizza.id}
-            initial={{ opacity: 0}}
-            animate={{ opacity: 1}}
-            transition={{ duration: 0.5, delay: index * 0.2}}
-          >
-            <PizzaCard pizza={{ ...pizza, id: pizza.id.toString(), category: pizza.category || "" }} />
-          </motion.div>
-        ))}
+        {loading ? (
+          <div className="col-span-full flex flex-col justify-center items-center min-h-[300px]">
+            <LottieLoader />
+            <span className="mt-4 text-muted-foreground text-xs">جاري تحميل قائمة الطعام...</span>
+          </div>
+        ) : (
+          filteredPizzas.map((pizza, index) => (
+            <motion.div
+              key={pizza.id}
+              initial={{ opacity: 0}}
+              animate={{ opacity: 1}}
+              transition={{ duration: 0.5, delay: index * 0.2}}
+            >
+              <PizzaCard pizza={{ ...pizza, id: pizza.id.toString(), category: pizza.category || "" }} />
+            </motion.div>
+          ))
+        )}
       </div>
     </div>
   );

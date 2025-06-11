@@ -1,9 +1,9 @@
 import { ThemeToggle } from "./theme-toggle";
-import { Sheet, SheetTrigger, SheetContent } from "./ui/sheet";
-import { Button } from "./ui/button";
+import { Sheet, SheetTrigger, SheetContent } from "../ui/sheet";
+import { Button } from "../ui/button";
 import { ShoppingCart } from "lucide-react";
 import { Cart } from "./cart";
-import { useMediaQuery } from "../hooks/use-media-query";
+import { useMediaQuery } from "../../hooks/use-media-query";
 import { JSX } from "react";
 
 

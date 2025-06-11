@@ -1,9 +1,9 @@
 import { useState } from "react"
-import { MenuHeader } from "../../components/menu-header"
-import { PizzaMenu } from "../../components/pizza-menu"
-import { Cart } from "../../components/cart"
-import { Checkout } from "../../components/checkout"
-import { CartProvider } from "../../components/cart-provider"
+import { MenuHeader } from "../../components/generalComponents/menu-header"
+import { PizzaMenu } from "../../components/generalComponents/pizza-menu"
+import { Cart } from "../../components/generalComponents/cart"
+import { Checkout } from "../../components/generalComponents/checkout"
+import { CartProvider } from "../../components/generalComponents/cart-provider"
 
 export default function MenuPage() {
   const [view, setView] = useState<"menu" | "checkout" | "confirmation">("menu")

@@ -1,9 +1,9 @@
 import React from "react";
 import "./admin-panel.css";
-import { LoginForm } from "../../components/admin/LoginForm";
-import { CategoryForm } from "../../components/admin/CategoryForm";
-import { ItemForm } from "../../components/admin/ItemForm";
-import { DeleteForms } from "../../components/admin/DeleteForms";
+import { LoginForm } from "../../components/adminComponents/LoginForm";
+import { CategoryForm } from "../../components/adminComponents/CategoryForm";
+import { ItemForm } from "../../components/adminComponents/ItemForm";
+import { DeleteForms } from "../../components/adminComponents/DeleteForms";
 import { Button } from "../../components/ui/button";
 import { useAdminPanel } from "../../hooks/use-admin";
 

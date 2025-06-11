@@ -1,7 +1,7 @@
 import { Minus, Plus, Trash2 } from "lucide-react"
-import { Button } from "./ui/button"
-import { ScrollArea } from "./ui/scroll-area"
-import { Separator } from "./ui/separator"
+import { Button } from "../ui/button"
+import { ScrollArea } from "../ui/scroll-area"
+import { Separator } from "../ui/separator"
 import { useCart } from "./cart-provider"
 
 interface CartProps {

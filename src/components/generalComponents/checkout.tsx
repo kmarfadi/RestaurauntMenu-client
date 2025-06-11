@@ -1,12 +1,12 @@
 import type React from "react"
 import { useState } from "react"
 import { ArrowLeft, Trash2 } from "lucide-react"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
-import { Label } from "./ui/label"
-import { Separator } from "./ui/separator"
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
+import { Label } from "../ui/label"
+import { Separator } from "../ui/separator"
 import { useCart } from "./cart-provider"
-import { submitOrder } from "../lib/services"
+import { submitOrder } from "../../lib/services"
 
 interface CheckoutProps {
   onBackToMenu: () => void
