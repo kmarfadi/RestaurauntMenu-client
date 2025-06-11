@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
-import Player from 'lottie-react';
-import pizzaAnimation from '../../assets/1fbvesCGBF.json';
+import Player, { LottieRefCurrentProps } from 'lottie-react';
+import pizzaAnimation from '../../assets/loadingLottieAsset.json';
 
 export default function LottieLoader({ style }: { style?: React.CSSProperties }) {
-  const playerRef = useRef<any>(null);
+  const playerRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
     if (playerRef.current) {
-      playerRef.current.setSpeed(1.5); // 2x faster
+      playerRef.current.setSpeed(1.5);
     }
   }, []);
 

@@ -58,7 +58,7 @@ export function PizzaCard({ pizza }: PizzaCardProps) {
             addItem(pizza)
             setIsOpen(false)
           }}
-          className="bg-red-500 hover:bg-red-600 font-cairo text-white"
+          className="bg-red-500 hover:bg-red-600 font-cairo text-xs text-white"
         >
           <Plus className="h-4 w-5 ml-2" />
           إضافة إلى السلة
