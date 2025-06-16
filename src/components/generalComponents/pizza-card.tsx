@@ -5,7 +5,6 @@ import { useCart } from "./cart-provider"
 import type { Pizza } from "../../types"
 import { useState } from "react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog"
-import { useTranslation } from "react-i18next"
 
 interface PizzaCardProps {
   pizza: Pizza
@@ -14,7 +13,6 @@ interface PizzaCardProps {
 export function PizzaCard({ pizza }: PizzaCardProps) {
   const { addItem } = useCart()
   const [isOpen, setIsOpen] = useState(false)
-  const { t } = useTranslation()
 
   // Ensure price is a number
   const price = Number(pizza.price)
@@ -32,7 +30,7 @@ export function PizzaCard({ pizza }: PizzaCardProps) {
           <div className="flex justify-between items-start">
             <div>
               <h3 className="font-cairo font-bold text-sm">{pizza.name}</h3>
-              <p className="font-cairo text-sm text-muted-foreground line-clamp-2 mt-1 text-xs">{price} {t('common.currency')}</p>
+              <p className="font-cairo text-sm text-muted-foreground line-clamp-2 mt-1 text-xs">{price}﷼</p>
             </div>
           </div>
         </CardContent>
@@ -42,7 +40,7 @@ export function PizzaCard({ pizza }: PizzaCardProps) {
             className="w-full bg-red-500 hover:bg-red-600 font-cairo text-[11px] text-white"
           >
             <Plus className="h-4 w-4 ml-2 " />
-            {t('menu.actions.addToCart')}
+            إضافة إلى السلة
           </Button>
         </CardFooter>
       </Card>
@@ -50,24 +48,24 @@ export function PizzaCard({ pizza }: PizzaCardProps) {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="sm:max-w-[500px] font-cairo">
           <DialogHeader>
-            <DialogTitle className="text-xl font-cairo font-bold">{pizza.name}</DialogTitle>
-            <DialogDescription className="text-sm font-cairo">{pizza.description}</DialogDescription>
+        <DialogTitle className="text-xl font-cairo font-bold">{pizza.name}</DialogTitle>
+        <DialogDescription className="text-sm font-cairo">{pizza.description}</DialogDescription>
           </DialogHeader>
           <div className="relative aspect-square w-full overflow-hidden rounded-md">
-            <img src={pizza.image || "/placeholder.svg"} alt={pizza.name} className="object-cover" />
+        <img src={pizza.image || "/placeholder.svg"} alt={pizza.name} className="object-cover" />
           </div>
           <div className="flex justify-between items-center">
-            <div className="text-lg font-cairo font-bold">{price} {t('common.currency')}</div>
-            <Button
-              onClick={() => {
-                addItem(pizza)
-                setIsOpen(false)
-              }}
-              className="bg-red-500 hover:bg-red-600 font-cairo text-[10px] text-white"
-            >
-              <Plus className="h-4 w-5 ml-2" />
-              {t('menu.actions.addToCart')}
-            </Button>
+        <div className="text-lg font-cairo font-bold">{price} ﷼</div>
+        <Button
+          onClick={() => {
+            addItem(pizza)
+            setIsOpen(false)
+          }}
+          className="bg-red-500 hover:bg-red-600 font-cairo text-[10px] text-white"
+        >
+          <Plus className="h-4 w-5 ml-2" />
+          إضافة إلى السلة
+        </Button>
           </div>
         </DialogContent>
       </Dialog>
