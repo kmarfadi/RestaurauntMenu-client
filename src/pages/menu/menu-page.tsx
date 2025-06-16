@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { MenuHeader } from "../../components/generalComponents/menu-header"
-import { PizzaMenu } from "../../components/generalComponents/pizza-menu"
+import PizzaMenu from "../../components/generalComponents/pizza-menu"
 import { Cart } from "../../components/generalComponents/cart"
 import { Checkout } from "../../components/generalComponents/checkout"
 import { CartProvider } from "../../components/generalComponents/cart-provider"

@@ -1,173 +1,127 @@
-import { useState, useEffect } from "react"
-import { PizzaCard } from "./pizza-card"
-import { fetchMenu } from "../../lib/services"
-import { motion } from "framer-motion";
-import LottieLoader from "./LottieLoader";
+import React, { useEffect, useState } from 'react';
+import { PizzaCard } from './pizza-card';
+import { fetchMenu } from '../../lib/services';
+import { motion } from 'framer-motion';
+import LottieLoader from './LottieLoader';
+import { useTranslation } from 'react-i18next';
+import type { Pizza } from '../../types';
 
 interface Category {
-  id: number
-  name: string
-  cover_image: string
+  id: number;
+  name: string;
+  name_ar: string;
 }
 
 interface Item {
-  id: number
-  name: string
-  description: string
-  price: number
-  image: string
-  category_id: number
-  category?: string
+  id: number;
+  name: string;
+  name_ar: string;
+  description: string;
+  description_ar: string;
+  price: number;
+  image: string;
+  category_id: number;
 }
 
-export function PizzaMenu() {
-  const [categories, setCategories] = useState<Category[]>([])
-  const [items, setItems] = useState<Item[]>([])
-  const [category, setCategory] = useState<string>("all")
-  const [filteredPizzas, setFilteredPizzas] = useState<Item[]>([])
-  const [loading, setLoading] = useState(true)
+const PizzaMenu: React.FC = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [filteredPizzas, setFilteredPizzas] = useState<Item[]>([]);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    async function fetchData() {
+    const loadMenu = async () => {
       try {
-        setLoading(true)
-        const data = await fetchMenu()
-        setCategories([ ...data.categories])
-        setItems(data.items)
-        setFilteredPizzas(data.items)
+        const data = await fetchMenu();
+        setCategories(data.categories);
+        setItems(data.items);
+        setFilteredPizzas(data.items);
       } catch (error) {
-        console.error("Error fetching data:", error)
+        console.error('Error loading menu:', error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchData()
-  }, [])
+    };
+
+    loadMenu();
+  }, []);
 
   useEffect(() => {
-    if (category === "all") {
-      setFilteredPizzas(items)
+    if (selectedCategory === null) {
+      setFilteredPizzas(items);
     } else {
-      const filtered = items.filter((item) => item.category_id === parseInt(category))
-      setFilteredPizzas(filtered)
+      setFilteredPizzas(items.filter(item => item.category_id === selectedCategory));
     }
-  }, [category, items])
+  }, [selectedCategory, items]);
 
-  return (
-    <div className="py-8 font-cairo">
-      <h2 className="text-3xl font-cairo font-bold mb-8 text-center dark:text-white">قائمة الطعام</h2>
-
-      <div className="flex justify-center mb-8 pb-2">
-        <div className="flex space-x-reverse space-x-2 overflow-x-auto no-scrollbar">
-          <button
-            onClick={() => setCategory("all")}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              category === "all"
-                ? "bg-red-500 text-white"
-                : "bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-200"
-            }`}
-          >
-            الكل
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setCategory(cat.id.toString())}
-              className={`ml-1 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                category === cat.id.toString()
-                  ? "bg-red-500 text-white"
-                  : "bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-200"
-              }`}
-            >
-              {cat.name}
-            </button>
-          ))}
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <h2 className="text-3xl font-bold mb-8 text-center font-cairo">{t('menu.title')}</h2>
+        <div className="flex flex-col items-center justify-center min-h-[400px]">
+          <LottieLoader />
+          <p className="text-gray-600 mt-4">{t('menu.loading')}</p>
         </div>
       </div>
+    );
+  }
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap- max-w-5xl mx-auto">
-        {loading ? (
-          <div className="col-span-full flex flex-col justify-center items-center min-h-[300px]">
-            <LottieLoader />
-            <span className="mt-4 text-muted-foreground text-xs">جاري تحميل قائمة الطعام...</span>
-          </div>
-        ) : (
-          category === "all" ? (
-            categories.map((cat) => {
-              const pizzasInCat = items.filter(item => item.category_id === cat.id);
-              if (pizzasInCat.length === 0) return null;
+  const getCategoryName = (categoryId: number): string => {
+    const category = categories.find(cat => cat.id === categoryId);
+    return i18n.language === 'ar' ? category?.name_ar || '' : category?.name || '';
+  };
 
-              // You can define a color map for categories, or use a property from your category object if available.
-              // Example color map (customize as needed):
-              const categoryColors: Record<number, string> = {
-                1: "bg-red-500",
-                2: "bg-yellow-500",
-                3: "bg-green-500",
-                4: "bg-blue-500",
-                // ...add more as needed
-              };
-              const lineColor = categoryColors[cat.id] || "bg-red-500";
-
-              return (
-                <div key={cat.id} className="col-span-full mb-12">
-                  <div className="flex items-center justify-center mb-6">
-                    <motion.span
-                      className={`inline-block w-10 h-px rounded mx-2 ${lineColor}`}
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: true, amount: 0.5 }}
-                      transition={{ duration: 0.7, delay: 0.1 }}
-                      style={{ originX: 0, display: "inline-block" }}
-                    />
-                    <motion.h3
-                      className="text-xl font-extrabold tracking-tight dark:text-white text-center mx-2 whitespace-nowrap"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true, amount: 0.5 }}
-                      transition={{ duration: 0.7, delay: 0.3 }}
-                    >
-                      {cat.name}
-                    </motion.h3>
-                    <motion.span
-                      className={`inline-block w-10 h-px rounded mx-2 ${lineColor}`}
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: true, amount: 0.5 }}
-                      transition={{ duration: 0.7, delay: 0.1 }}
-                      style={{ originX: 1, display: "inline-block" }}
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {pizzasInCat.map((pizza) => (
-                      <motion.div
-                        key={pizza.id}
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true, amount: 0.1 }}
-                        transition={{ duration: 1 }}
-                      >
-                        <PizzaCard pizza={{ ...pizza, id: pizza.id.toString(), category: pizza.category || "" }} />
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })
-          ) : (
-            filteredPizzas.map((pizza) => (
-              <motion.div
-                key={pizza.id}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.7 }}
-              >
-                <PizzaCard pizza={{ ...pizza, id: pizza.id.toString(), category: pizza.category || "" }} />
-              </motion.div>
-            ))
-          )
-        )}
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-3xl font-bold mb-8 text-center font-cairo">{t('menu.title')}</h2>
+      <div className="flex flex-wrap gap-4 mb-8 justify-center">
+        <button
+          onClick={() => setSelectedCategory(null)}
+          className={`px-6 py-2 rounded-full transition-all duration-300 ${
+            selectedCategory === null
+              ? 'bg-red-600 text-white shadow-lg scale-105'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          {t('menu.all')}
+        </button>
+        {categories.map((category) => (
+          <button
+            key={category.id}
+            onClick={() => setSelectedCategory(category.id)}
+            className={`px-6 py-2 rounded-full transition-all duration-300 ${
+              selectedCategory === category.id
+                ? 'bg-red-600 text-white shadow-lg scale-105'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            {i18n.language === 'ar' ? category.name_ar : category.name}
+          </button>
+        ))}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      >
+        {filteredPizzas.map((item) => {
+          const pizza: Pizza = {
+            id: item.id.toString(),
+            name: i18n.language === 'ar' ? item.name_ar : item.name,
+            description: i18n.language === 'ar' ? item.description_ar : item.description,
+            price: item.price,
+            image: item.image,
+            category: getCategoryName(item.category_id)
+          };
+          return <PizzaCard key={item.id} pizza={pizza} />;
+        })}
+      </motion.div>
     </div>
   );
-}
+};
+
+export default PizzaMenu;
