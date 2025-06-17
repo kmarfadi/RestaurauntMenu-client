@@ -31,7 +31,7 @@ export function PizzaCard({ pizza }: PizzaCardProps) {
           <div className="flex justify-between items-start">
             <div>
               <h3 className="font-cairo font-bold text-sm">{pizza.name}</h3>
-              <p className="font-cairo text-sm text-muted-foreground line-clamp-2 mt-1 text-xs">{price}﷼</p>
+              <p className="font-cairo text-sm text-muted-foreground line-clamp-2 mt-1 text-xs">{price} {t("common.currency")}</p>
             </div>
           </div>
         </CardContent>
@@ -41,7 +41,7 @@ export function PizzaCard({ pizza }: PizzaCardProps) {
             className="w-full bg-red-500 hover:bg-red-600 font-cairo text-[11px] text-white"
           >
             <Plus className="h-4 w-4 ml-2 " />
-            {t("actions.addToCart")}
+            {t("menu.actions.addToCart")}
           </Button>
         </CardFooter>
       </Card>
@@ -65,7 +65,7 @@ export function PizzaCard({ pizza }: PizzaCardProps) {
           className="bg-red-500 hover:bg-red-600 font-cairo text-[10px] text-white"
         >
           <Plus className="h-4 w-5 ml-2" />
-          {t("actions.addToCart")}
+          {t("menu.actions.addToCart")}
          </Button>
           </div>
         </DialogContent>

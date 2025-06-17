@@ -12,7 +12,7 @@ interface CartProps {
 
 export function Cart({ onCheckout, isCompact = false }: CartProps) {
   const { items, subtotal, removeItem, updateItemQuantity } = useCart()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   if (items.length === 0) {
     return (
@@ -41,12 +41,18 @@ export function Cart({ onCheckout, isCompact = false }: CartProps) {
 
         {isCompact ? (
           <div className="flex items-center justify-between">
-            <div className="font-cairo">
+            <div
+              className={`font-cairo flex items-center gap-x-2 ${i18n.language === "ar" ? "flex-row-reverse" : ""}`}
+              dir={i18n.language === "ar" ? "rtl" : "ltr"}
+            >
               <span className="font-medium dark:text-white">
                 {items.length} {items.length === 1 ? t("cart.item") : t("cart.items")}
               </span>
-              <span className="mx-2 dark:text-white">·</span>
-              <span className="font-medium dark:text-white">{t("cart.currency")}{subtotal}</span>
+              <span className="dark:text-white">·</span>
+              <span className="font-medium dark:text-white">
+                {t("common.currency")} 
+                {subtotal}
+              </span>
             </div>
             <Button onClick={onCheckout} className="bg-red-500 hover:bg-red-600 font-cairo">
               {t("cart.checkout")}
@@ -65,7 +71,7 @@ export function Cart({ onCheckout, isCompact = false }: CartProps) {
                       <div className="flex justify-between">
                         <h4 className="font-medium font-cairo dark:text-white">{item.name}</h4>
                         <div className="font-medium font-cairo dark:text-white">
-                          {t("cart.currency")}{(item.price * item.quantity).toFixed(2)}
+                          {t("cart.currency")} {(item.price * item.quantity).toFixed(2)}
                         </div>
                       </div>
                       <div className="mt-auto flex items-center justify-between">
@@ -111,15 +117,15 @@ export function Cart({ onCheckout, isCompact = false }: CartProps) {
               <div className="space-y-1.5 font-cairo">
                 <div className="flex justify-between">
                   <span className="font-medium dark:text-white">{t("cart.subtotal")}</span>
-                  <span className="dark:text-white">{t("cart.currency")}{subtotal.toFixed(2)}</span>
+                  <span className="dark:text-white">{t("cart.currency")} {subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>{t("cart.tax")}</span>
-                  <span>{t("cart.currency")}{(subtotal * 0.08).toFixed(2)}</span>
+                  <span>{t("cart.currency")} {(subtotal * 0.08).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between font-medium text-lg">
                   <span className="dark:text-white">{t("cart.total")}</span>
-                  <span className="dark:text-white">{t("cart.currency")}{(subtotal * 1.08).toFixed(2)}</span>
+                  <span className="dark:text-white">{t("cart.currency")} {(subtotal * 1.08).toFixed(2)}</span>
                 </div>
               </div>
 

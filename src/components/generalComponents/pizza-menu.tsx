@@ -169,6 +169,25 @@ export function PizzaMenu() {
             ))
           )
         )}
+        {/* for testing */}
+        {/* <PizzaCard pizza={{
+          id: "1",
+          name: "Test Pizza",
+          description: "This is a test pizza description.",
+          price: 10.99,
+          image: "/placeholder.svg",
+          category_id: 1,
+          category: "Test Category"
+        }} />
+        <PizzaCard pizza={{
+          id: "2",
+          name: "Another Pizza",
+          description: "This is another test pizza description.",
+          price: 12.99,
+          image: "/placeholder.svg",
+          category_id: 2,
+          category: "Another Category"
+        }} /> */}
       </div>
     </div>
   );
