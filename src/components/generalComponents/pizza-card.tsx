@@ -5,6 +5,7 @@ import { useCart } from "./cart-provider"
 import type { Pizza } from "../../types"
 import { useState } from "react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog"
+import { useTranslation } from "react-i18next"
 
 interface PizzaCardProps {
   pizza: Pizza
@@ -13,7 +14,7 @@ interface PizzaCardProps {
 export function PizzaCard({ pizza }: PizzaCardProps) {
   const { addItem } = useCart()
   const [isOpen, setIsOpen] = useState(false)
-
+  const { t } = useTranslation()
   // Ensure price is a number
   const price = Number(pizza.price)
 
@@ -40,7 +41,7 @@ export function PizzaCard({ pizza }: PizzaCardProps) {
             className="w-full bg-red-500 hover:bg-red-600 font-cairo text-[11px] text-white"
           >
             <Plus className="h-4 w-4 ml-2 " />
-            إضافة إلى السلة
+            {t("actions.addToCart")}
           </Button>
         </CardFooter>
       </Card>
@@ -64,8 +65,8 @@ export function PizzaCard({ pizza }: PizzaCardProps) {
           className="bg-red-500 hover:bg-red-600 font-cairo text-[10px] text-white"
         >
           <Plus className="h-4 w-5 ml-2" />
-          إضافة إلى السلة
-        </Button>
+          {t("actions.addToCart")}
+         </Button>
           </div>
         </DialogContent>
       </Dialog>

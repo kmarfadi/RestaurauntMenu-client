@@ -3,6 +3,7 @@ import { PizzaCard } from "./pizza-card"
 import { fetchMenu } from "../../lib/services"
 import { motion } from "framer-motion";
 import LottieLoader from "./LottieLoader";
+import { useTranslation } from "react-i18next";
 
 interface Category {
   id: number
@@ -21,6 +22,8 @@ interface Item {
 }
 
 export function PizzaMenu() {
+  const { t } = useTranslation();
+
   const [categories, setCategories] = useState<Category[]>([])
   const [items, setItems] = useState<Item[]>([])
   const [category, setCategory] = useState<string>("all")
@@ -55,8 +58,7 @@ export function PizzaMenu() {
 
   return (
     <div className="py-8 font-cairo">
-      <h2 className="text-3xl font-cairo font-bold mb-8 text-center dark:text-white">قائمة الطعام</h2>
-
+      <h2 className="text-3xl font-cairo font-bold mb-8 text-center dark:text-white">{t("menu.title")}</h2>
       <div className="flex justify-center mb-8 pb-2">
         <div className="flex space-x-reverse space-x-2 overflow-x-auto no-scrollbar">
           <button
@@ -67,7 +69,7 @@ export function PizzaMenu() {
                 : "bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-200"
             }`}
           >
-            الكل
+            {t("menu.all")}
           </button>
           {categories.map((cat) => (
             <button
@@ -79,17 +81,17 @@ export function PizzaMenu() {
                   : "bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-200"
               }`}
             >
-              {cat.name}
+              {/* Use translation , or fallback to cat.name */}
+              {t(`categories.${cat.id}`, cat.name)}
             </button>
           ))}
         </div>
       </div>
-
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap- max-w-5xl mx-auto">
         {loading ? (
           <div className="col-span-full flex flex-col justify-center items-center min-h-[300px]">
             <LottieLoader />
-            <span className="mt-4 text-muted-foreground text-xs">جاري تحميل قائمة الطعام...</span>
+            <span className="mt-4 text-muted-foreground text-xs">{t("menu.loading")}</span>
           </div>
         ) : (
           category === "all" ? (
@@ -126,7 +128,7 @@ export function PizzaMenu() {
                       viewport={{ once: true, amount: 0.5 }}
                       transition={{ duration: 0.7, delay: 0.3 }}
                     >
-                      {cat.name}
+                      {t(`categories.${cat.id}`, cat.name)}
                     </motion.h3>
                     <motion.span
                       className={`inline-block w-10 h-px rounded mx-2 ${lineColor}`}

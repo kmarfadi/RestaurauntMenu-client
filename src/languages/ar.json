@@ -1,0 +1,73 @@
+{
+  "common": {
+    "menu": "القائمة",
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "contact": "اتصل بنا",
+    "order": "اطلب الآن",
+    "cart": "السلة",
+    "search": "بحث",
+    "language": "اللغة",
+    "restaurantName": "أمير اليتزا",
+    "currency": "﷼"
+  },
+  "menu": {
+    "title": "قائمة الطعام",
+    "all": "الكل",
+    "loading": "جاري تحميل قائمة الطعام...",
+    "categories": {
+      "pizza": "بيتزا",
+      "pasta": "معكرونة",
+      "salads": "سلطات",
+      "desserts": "حلويات",
+      "drinks": "مشروبات"
+    },
+    "actions": {
+      "addToCart": "أضف إلى السلة",
+      "customize": "تخصيص",
+      "viewDetails": "عرض التفاصيل"
+    }
+  },
+  "cart": {
+    "empty": "سلة المشتريات فارغة",
+    "total": "الإجمالي",
+    "checkout": "إتمام الطلب",
+    "continueShopping": "أضف بعض البيتزا اللذيذة للبدء!",
+    "remove": "إزالة العنصر",
+    "quantity": "الكمية",
+    "yourOrder": "طلبك",
+    "item": "عنصر",
+    "items": "عناصر",
+    "decreaseQuantity": "تقليل الكمية",
+    "increaseQuantity": "زيادة الكمية",
+    "subtotal": "المجموع الفرعي",
+    "tax": "الضريبة",
+    "clearCart": "تفريغ السلة"
+  },
+  "checkout": {
+    "backToMenu": "العودة إلى القائمة",
+    "orderSummary": "ملخص الطلب",
+    "total": "المجموع",
+    "deliveryInfo": "معلومات التوصيل",
+    "fullName": "الاسم الكامل",
+    "namePlaceholder": "محمد أحمد",
+    "deliveryAddress": "عنوان التوصيل",
+    "addressPlaceholder": "شارع هايل، صنعاء",
+    "selectBranch": "اختر الفرع",
+    "branch1": "فرع شارع هايل",
+    "branch2": "فرع شارع 16",
+    "processing": "جاري المعالجة...",
+    "completeOrder": "WhatsApp - إتمام الطلب",
+    "removeItem": "إزالة العنصر"
+  },
+  "confirmation": {
+    "success": "طلبك تم بنجاح!",
+    "backToMenu": "العودة إلى القائمة"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "logout": "تسجيل الخروج",
+    "profile": "الملف الشخصي"
+  }
+} 

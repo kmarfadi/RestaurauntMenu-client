@@ -7,6 +7,7 @@ import { Label } from "../ui/label"
 import { Separator } from "../ui/separator"
 import { useCart } from "./cart-provider"
 import { submitOrder } from "../../lib/services"
+import { useTranslation } from "react-i18next"
 
 interface CheckoutProps {
   onBackToMenu: () => void
@@ -14,11 +15,12 @@ interface CheckoutProps {
 }
 
 const branchNumbers = {
-  1: "+967777858820", // Branch 1 number
-  2: "+967779595956", // Branch 2 number
+  1: "+967777858820",
+  2: "+967779595956",
 }
 
 export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
+  const { t, i18n } = useTranslation()
   const { items, subtotal, clearCart, removeItem } = useCart()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [branchId, setBranchId] = useState<number | null>(null)
@@ -28,7 +30,7 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!branchId) {
-      alert("Please select a branch.")
+      alert(t("checkout.selectBranch"))
       return
     }
 
@@ -49,28 +51,32 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
       const data = await submitOrder(orderData)
       const whatsappUrl = data.whatsappUrl
 
-      // Clear the cart and redirect to the WhatsApp link
       clearCart()
       onOrderComplete("Order Completed")
-      window.location.href = whatsappUrl // Redirect to WhatsApp URL
+      window.location.href = whatsappUrl
     } catch (error) {
       console.error("Error:", error)
-      alert("An error occurred while processing your order. Please try again.")
+      alert(t("checkout.error"))
     } finally {
       setIsSubmitting(false)
     }
   }
 
+  const isEnglish = i18n.language === "en"
+
   return (
-    <div className="max-w-3xl mx-auto">
+    <div
+      className={`max-w-3xl mx-auto ${isEnglish ? "text-left" : "text-right"}`}
+      dir={isEnglish ? "ltr" : "rtl"}
+    >
       <Button variant="ghost" className="mb-6 pl-0" onClick={onBackToMenu}>
         <ArrowLeft className="mr-2 h-4 w-4" />
-        العودة إلى القائمة
+        {t("checkout.backToMenu")}
       </Button>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold mb-4">ملخص الطلب</h3>
+            <h3 className="text-lg font-bold mb-4">{t("checkout.orderSummary")}</h3>
           </div>
           <Separator className="my-4" />
           <div className="space-y-4 mb-6">
@@ -80,7 +86,7 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
                   <span className="font-medium">{item.quantity}x</span> {item.name}
                 </div>
                 <div className="flex items-center gap-2">
-                  <div>﷼{(item.price * item.quantity)}</div>
+                  <div>{t("common.currency")}{(item.price * item.quantity)}</div>
                   <Button
                     variant="ghost"
                     size="icon"
@@ -88,7 +94,7 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
                     onClick={() => removeItem(item.id)}
                   >
                     <Trash2 className="h-4 w-4" />
-                    <span className="sr-only">إزالة العنصر</span>
+                    <span className="sr-only">{t("checkout.removeItem")}</span>
                   </Button>
                 </div>
               </div>
@@ -99,22 +105,22 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
 
           <div className="space-y-1.5">
             <div className="flex justify-between font-medium text-lg pt-2">
-              <span className="font-bold">المجموع</span>
-              <span className="font-bold">﷼{subtotal}</span>
+              <span className="font-bold">{t("checkout.total")}</span>
+              <span className="font-bold"> {subtotal} {t("common.currency")}</span>
             </div>
           </div>
         </div>
-
+        <Separator/>
         <div>
-          <h3 className="text-lg font-medium mb-4 font-cairo dark:text-white">معلومات التوصيل</h3>
+          <h3 className="text-lg font-bold mb-4 font-cairo dark:text-white">{t("checkout.deliveryInfo")}</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="name" className="font-cairo">
-                الاسم الكامل
+                {t("checkout.fullName")}
               </Label>
               <Input
                 id="name"
-                placeholder="محمد أحمد"
+                placeholder={t("checkout.namePlaceholder")}
                 required
                 className="font-cairo"
                 value={name}
@@ -122,13 +128,13 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 mb-8">
               <Label htmlFor="address" className="font-cairo">
-                عنوان التوصيل
+                {t("checkout.deliveryAddress")}
               </Label>
               <Input
                 id="address"
-                placeholder= "شارع هايل، صنعاء"
+                placeholder={t("checkout.addressPlaceholder")}
                 required
                 className="font-cairo"
                 value={address}
@@ -137,7 +143,7 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
             </div>
 
             <div className="space-y-2">
-              <Label className="font-cairo">اختر الفرع</Label>
+              <Label className="font-cairo">{t("checkout.selectBranch")}</Label>
               <div className="space-y-2">
                 {Object.entries(branchNumbers).map(([id]) => (
                   <div key={id} className="flex items-center space-x-2 space-x-reverse">
@@ -147,10 +153,10 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
                       name="branch"
                       value={id}
                       onChange={() => setBranchId(Number(id))}
-                      className="cursor-pointer"
+                      className="cursor-pointer mr-2 accent-red-500"
                     />
                     <label htmlFor={`branch-${id}`} className="font-cairo cursor-pointer">
-                      {id === "1" ? "فرع شارع هايل" : "فرع شارع 16"}
+                      {id === "1" ? t("checkout.branch1") : t("checkout.branch2")}
                     </label>
                   </div>
                 ))}
@@ -162,7 +168,7 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
               className="w-full bg-red-500 hover:bg-red-600 mt-6 font-cairo"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "جاري المعالجة..." : "WhatsApp - إتمام الطلب"}
+              {isSubmitting ? t("checkout.processing") : t("checkout.completeOrder")}
             </Button>
           </form>
         </div>

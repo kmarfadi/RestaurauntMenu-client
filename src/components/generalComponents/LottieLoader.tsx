@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import Player, { LottieRefCurrentProps } from 'lottie-react';
-import pizzaAnimation from '../../assets/loadingLottieAsset3.json';
+import pizzaAnimation from '../../assets/loadingLottieAsset4.json';
 
 export default function LottieLoader({ style }: { style?: React.CSSProperties }) {
   const playerRef = useRef<LottieRefCurrentProps>(null);
