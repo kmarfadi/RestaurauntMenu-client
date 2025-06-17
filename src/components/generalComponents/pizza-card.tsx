@@ -14,9 +14,9 @@ interface PizzaCardProps {
 export function PizzaCard({ pizza }: PizzaCardProps) {
   const { addItem } = useCart()
   const [isOpen, setIsOpen] = useState(false)
-  const { t } = useTranslation()
   // Ensure price is a number
   const price = Number(pizza.price)
+  const { t } = useTranslation()
 
   return (
     <div>
