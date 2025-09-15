@@ -1,14 +1,21 @@
 # 🍕 Marf Pizza - Restaurant Menu Application
 
-### Desktop Experience  
+A comprehensive, modern restaurant menu application with both **customer-facing menu** and **admin management panel**. Built with React 19, TypeScript, and Vite, featuring a beautiful pizza-focused interface with full cart functionality, checkout process, and multi-language support.
+
+## 📱 Demo
+
+### Customer Experience
+
+#### Desktop Experience  
 ![Desktop Demo](desktopdemo.gif)
 
-
-  ### Mobile Experience
+#### Mobile Experience
 <img src="phonedemo.gif" alt="Mobile Demo" width="300">
 
+### 👨‍💼 Admin Panel
 
-A comprehensive, modern restaurant menu application with both **customer-facing menu** and **admin management panel**. Built with React 19, TypeScript, and Vite, featuring a beautiful pizza-focused interface with full cart functionality, checkout process, and multi-language support.
+#### Admin Management Interface
+![Admin Panel Demo](adminpanneldemo.gif)
 
 ## 🎯 Project Overview
 
@@ -29,12 +36,14 @@ This is a full-stack restaurant menu solution consisting of:
 - **Loading Animations**: Lottie animations and smooth transitions
 
 ### 👨‍💼 Admin Panel
-- **Secure Authentication**: JWT-based admin login system
-- **Category Management**: Create, update, and delete menu categories
-- **Item Management**: Add new pizzas with image uploads via Cloudinary
+- **Secure Authentication**: JWT-based admin login with clean English interface
+- **Category Management**: Create and delete menu categories with validation
+- **Item Management**: Add new menu items with image uploads via Cloudinary
 - **Real-time Updates**: Instant menu updates without page refresh
-- **Image Upload**: Drag-and-drop image uploads with preview
-- **Bulk Operations**: Delete multiple items and categories
+- **Image Upload**: File upload with preview and size validation (max 5MB)
+- **Delete Operations**: Safe deletion with confirmation dialogs
+- **Professional UI**: Clean, modern interface with proper error handling
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
 
 ## 🛠️ Technology Stack
 
@@ -97,6 +106,15 @@ npm run dev
 ```
 
 🌐 **Application will be available at:** `http://localhost:3000`
+
+### 🔐 Admin Access
+
+To access the admin panel, navigate to `http://localhost:3000/admin` and use these credentials:
+
+- **Username:** `admin`
+- **Password:** `password123`
+
+> **Note:** Change these credentials in production by setting `ADMIN_USERNAME` and `ADMIN_PASSWORD` environment variables on the server.
 
 ## 📁 Project Architecture
 
@@ -269,14 +287,24 @@ VITE_APP_VERSION=1.0.0
 ## 🧪 Testing Strategy
 
 ### Manual Testing Checklist
+
+#### Customer Features
 - [ ] Menu loading and display
 - [ ] Cart functionality (add/remove/update)
 - [ ] Checkout process completion
-- [ ] Admin login and management
-- [ ] Image upload functionality
-- [ ] Language switching
-- [ ] Theme switching
+- [ ] Language switching (Arabic/English)
+- [ ] Theme switching (Dark/Light mode)
 - [ ] Responsive design across devices
+- [ ] WhatsApp order submission
+
+#### Admin Panel Features
+- [ ] Admin login with correct credentials
+- [ ] Category creation and deletion
+- [ ] Menu item creation with image upload
+- [ ] Image upload validation (file size, type)
+- [ ] Delete confirmation dialogs
+- [ ] Error handling and user feedback
+- [ ] Admin panel responsive design
 
 ### Performance Optimization
 - **Code Splitting** - Route-based lazy loading
