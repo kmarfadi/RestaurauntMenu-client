@@ -15,7 +15,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/admin/login`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
