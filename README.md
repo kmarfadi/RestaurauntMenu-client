@@ -1,10 +1,12 @@
 # 🍕 Marf Pizza - Restaurant Menu Application
 
-### Mobile Experience
-![Mobile Demo](phonedemo.gif)
-
 ### Desktop Experience  
 ![Desktop Demo](desktopdemo.gif)
+
+
+  ### Mobile Experience
+<img src="phonedemo.gif" alt="Mobile Demo" width="300">
+
 
 A comprehensive, modern restaurant menu application with both **customer-facing menu** and **admin management panel**. Built with React 19, TypeScript, and Vite, featuring a beautiful pizza-focused interface with full cart functionality, checkout process, and multi-language support.
 
