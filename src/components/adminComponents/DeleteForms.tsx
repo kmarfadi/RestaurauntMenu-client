@@ -1,5 +1,7 @@
 import React from "react";
 import { deleteCategory, deleteItem } from "../../lib/services";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Label } from "../ui/label";
 
 interface DeleteFormsProps {
   token: string;
@@ -15,67 +17,94 @@ export const DeleteForms: React.FC<DeleteFormsProps> = ({
   items,
 }) => {
   const handleCategoryDelete = async (id: number) => {
-    if (confirm("هل أنت متأكد أنك تريد حذف هذه الفئة؟")) {
+    if (confirm("Are you sure you want to delete this category?")) {
       try {
         await deleteCategory(id, token);
-        alert("تم حذف الفئة!");
+        alert("Category deleted successfully!");
         onSuccess();
       } catch (err) {
-        alert("فشل في حذف الفئة");
+        alert("Failed to delete category");
         console.error("Delete category error:", err);
       }
     }
   };
 
   const handleItemDelete = async (id: number) => {
-    if (confirm("هل أنت متأكد أنك تريد حذف هذا العنصر؟")) {
+    if (confirm("Are you sure you want to delete this item?")) {
       try {
         await deleteItem(id, token);
-        alert("تم حذف العنصر!");
+        alert("Item deleted successfully!");
         onSuccess();
       } catch (err) {
-        alert("فشل في حذف العنصر");
+        alert("Failed to delete item");
         console.error("Delete item error:", err);
       }
     }
   };
 
   return (
-    <>
-      <section className="admin-section">
-        <h2 className="section-title">حذف فئة</h2>
-        <p style={{ color: "red", fontSize: "12px", marginBottom: "10px" }}>
-          ملاحظة: تأكد من مراجعة العناصر المرتبطة قبل حذف الفئة.
+    <div>
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-foreground">Delete Items</h2>
+        <p className="text-muted-foreground mt-1">
+          Remove categories or menu items from your restaurant
         </p>
-        <select
-          className="form-select"
-          onChange={(e) => handleCategoryDelete(Number(e.target.value))}
-        >
-          <option value="">اختر فئة للحذف</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </section>
+      </div>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Delete Category</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-sm text-destructive">
+              ⚠️ Warning: Make sure to review associated items before deleting a category.
+            </p>
+            <div className="space-y-2">
+              <Label htmlFor="delete-category" className="text-sm font-medium">
+                Select Category to Delete
+              </Label>
+              <select
+                id="delete-category"
+                className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                onChange={(e) => handleCategoryDelete(Number(e.target.value))}
+              >
+                <option value="">Select category to delete</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </CardContent>
+        </Card>
 
-      <hr />
-
-      <section className="admin-section">
-        <h2 className="section-title">حذف عنصر</h2>
-        <select
-          className="form-select"
-          onChange={(e) => handleItemDelete(Number(e.target.value))}
-        >
-          <option value="">اختر عنصر للحذف</option>
-          {items.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </section>
-    </>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Delete Menu Item</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="delete-item" className="text-sm font-medium">
+                Select Item to Delete
+              </Label>
+              <select
+                id="delete-item"
+                className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                onChange={(e) => handleItemDelete(Number(e.target.value))}
+              >
+                <option value="">Select item to delete</option>
+                {items.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 };

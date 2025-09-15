@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { CategoryData } from "../../types";
 import { addCategory } from "../../lib/services";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 interface CategoryFormProps {
   token: string;
@@ -15,36 +19,42 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ token, onSuccess }) 
   const handleSubmit = async () => {
     try {
       await addCategory(categoryData, token);
-      alert("تمت إضافة الفئة!");
+      alert("Category added successfully!");
       setCategoryData({ name: "" });
       onSuccess();
     } catch (err) {
-      alert("فشل في إضافة الفئة");
+      alert("Failed to add category");
       console.error("Add category error:", err);
     }
   };
 
   return (
-    <section className="admin-section">
-      <h2 className="section-title">إضافة فئة</h2>
-      <div className="form-group">
-        <label htmlFor="category-name" className="form-label">
-          الاسم <span style={{ color: "red" }}>*</span>
-        </label>
-        <input
-          id="category-name"
-          className="form-input"
-          placeholder="الاسم"
-          value={categoryData.name}
-          onChange={(e) =>
-            setCategoryData({ ...categoryData, name: e.target.value })
-          }
-        />
-        <br />
-        <button className="form-button" onClick={handleSubmit}>
-          إضافة الفئة
-        </button>
-      </div>
-    </section>
+    <Card className="h-fit">
+      <CardHeader>
+        <CardTitle className="text-xl">Add Category</CardTitle>
+        <p className="text-sm text-muted-foreground">
+          Create a new menu category
+        </p>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        <div className="space-y-2">
+          <Label htmlFor="category-name" className="text-sm font-medium">
+            Category Name <span className="text-destructive">*</span>
+          </Label>
+          <Input
+            id="category-name"
+            placeholder="Enter category name"
+            value={categoryData.name}
+            onChange={(e) =>
+              setCategoryData({ ...categoryData, name: e.target.value })
+            }
+            className="h-10"
+          />
+        </div>
+        <Button onClick={handleSubmit} className="w-full h-10">
+          Add Category
+        </Button>
+      </CardContent>
+    </Card>
   );
 };

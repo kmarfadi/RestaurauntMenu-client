@@ -24,7 +24,7 @@ export const useAdminPanel = () => {
       const data = await fetchMenu();
       setMenuData(data);
     } catch (err) {
-      alert("فشل في جلب بيانات القائمة");
+      alert("Failed to fetch menu data");
       console.error("Fetch menu data error:", err);
     }
   };
