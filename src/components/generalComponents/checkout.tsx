@@ -66,18 +66,18 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
 
   return (
     <div
-      className={`max-w-3xl mx-auto ${isEnglish ? "text-left" : "text-right"}`}
+      className={`max-w-6xl mx-auto px-4 ${isEnglish ? "text-left" : "text-right"}`}
       dir={isEnglish ? "ltr" : "rtl"}
     >
       <Button variant="ghost" className="mb-6 pl-0" onClick={onBackToMenu}>
         <ArrowLeft className="mr-2 h-4 w-4" />
         {t("checkout.backToMenu")}
       </Button>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold mb-4">{t("checkout.orderSummary")}</h3>
-          </div>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        {/* Order Summary */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border">
+          <h3 className="text-xl font-bold mb-6">{t("checkout.orderSummary")}</h3>
           <Separator className="my-4" />
           <div className="space-y-4 mb-6">
             {items.map((item) => (
@@ -104,58 +104,59 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
           <Separator className="my-4" />
 
           <div className="space-y-1.5">
-            <div className="flex justify-between font-medium text-lg pt-2">
+            <div className="flex justify-between font-medium text-xl pt-2">
               <span className="font-bold">{t("checkout.total")}</span>
-              <span className="font-bold"> {subtotal} {t("common.currency")}</span>
+              <span className="font-bold text-red-500"> {subtotal} {t("common.currency")}</span>
             </div>
           </div>
         </div>
-        <Separator/>
-        <div>
-          <h3 className="text-lg font-bold mb-4 font-cairo dark:text-white">{t("checkout.deliveryInfo")}</h3>
-          <form onSubmit={handleSubmit} className="space-y-4">
+
+        {/* Delivery Information */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border">
+          <h3 className="text-xl font-bold mb-6 font-cairo dark:text-white">{t("checkout.deliveryInfo")}</h3>
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="name" className="font-cairo">
+              <Label htmlFor="name" className="font-cairo text-base">
                 {t("checkout.fullName")}
               </Label>
               <Input
                 id="name"
                 placeholder={t("checkout.namePlaceholder")}
                 required
-                className="font-cairo"
+                className="font-cairo h-12"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
 
-            <div className="space-y-2 mb-8">
-              <Label htmlFor="address" className="font-cairo">
+            <div className="space-y-2">
+              <Label htmlFor="address" className="font-cairo text-base">
                 {t("checkout.deliveryAddress")}
               </Label>
               <Input
                 id="address"
                 placeholder={t("checkout.addressPlaceholder")}
                 required
-                className="font-cairo"
+                className="font-cairo h-12"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
             </div>
 
-            <div className="space-y-2">
-              <Label className="font-cairo">{t("checkout.selectBranch")}</Label>
-              <div className="space-y-2">
+            <div className="space-y-4">
+              <Label className="font-cairo text-base">{t("checkout.selectBranch")}</Label>
+              <div className="space-y-3">
                 {Object.entries(branchNumbers).map(([id]) => (
-                  <div key={id} className="flex items-center space-x-2 space-x-reverse">
+                  <div key={id} className="flex items-center space-x-2 space-x-reverse p-3 rounded-lg border hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                     <input
                       type="radio"
                       id={`branch-${id}`}
                       name="branch"
                       value={id}
                       onChange={() => setBranchId(Number(id))}
-                      className="cursor-pointer mr-2 accent-red-500"
+                      className="cursor-pointer accent-red-500"
                     />
-                    <label htmlFor={`branch-${id}`} className="font-cairo cursor-pointer">
+                    <label htmlFor={`branch-${id}`} className="font-cairo cursor-pointer text-base">
                       {id === "1" ? t("checkout.branch1") : t("checkout.branch2")}
                     </label>
                   </div>
@@ -165,7 +166,7 @@ export function Checkout({ onBackToMenu, onOrderComplete }: CheckoutProps) {
 
             <Button
               type="submit"
-              className="w-full bg-red-500 hover:bg-red-600 mt-6 font-cairo"
+              className="w-full bg-red-500 hover:bg-red-600 mt-8 font-cairo h-12 text-lg"
               disabled={isSubmitting}
             >
               {isSubmitting ? t("checkout.processing") : t("checkout.completeOrder")}
