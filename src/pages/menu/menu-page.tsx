@@ -29,7 +29,12 @@ export default function MenuPage() {
           {view === "menu" && (
             <>
               <PizzaMenu />
+              {/* Mobile cart footer */}
               <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-background border-t border-border">
+                <Cart isCompact onCheckout={handleCheckout} />
+              </div>
+              {/* Desktop cart footer */}
+              <div className="hidden lg:block fixed bottom-0 left-0 right-0 p-4 bg-background border-t border-border">
                 <Cart isCompact onCheckout={handleCheckout} />
               </div>
             </>

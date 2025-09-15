@@ -7,6 +7,7 @@ import { Cart } from "./cart";
 import { useMediaQuery } from "../../hooks/use-media-query";
 import { JSX } from "react";
 import { useTranslation } from "react-i18next";
+import { useCart } from "./cart-provider";
 
 interface MenuHeaderProps {
   onCartClick: () => void;
@@ -15,7 +16,8 @@ interface MenuHeaderProps {
 
 export const MenuHeader = ({ onCartClick, onHomeClick}: MenuHeaderProps): JSX.Element => {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
-  const itemCount = 0; // Replace with actual state or prop
+  const { items } = useCart();
+  const itemCount = items.reduce((total, item) => total + item.quantity, 0);
   const { t } = useTranslation();
   return (
 <header className="sticky top-0 z-10 bg-background border-b border-border py-4">
