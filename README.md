@@ -346,4 +346,4 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
-**Built with ❤️ for Marf Pizza Restaurant**
+**Built with ❤️ by Marf for Amir Pizza Restaurant**
